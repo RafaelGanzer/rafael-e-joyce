@@ -304,7 +304,7 @@
 							</div>
 							<p style="font-family: 'Courgette', Arial, serif">Endereço: Capela São Sebastião, Roseira de São Sebastião - São José dos Pinhais / PR</p>
 
-							<a href="https://goo.gl/maps/kSZez6MQC8SDNevM7" target="_blank"
+							<a href="https://g.co/kgs/9mmcDNm" target="_blank"
 							   class="btn btn-primary">Ver Localização <i class="icon-map2"></i></a>
 						</div>
 					</div>
@@ -323,7 +323,7 @@
 							</div>
 							<p style="font-family: 'Courgette', Arial, serif">Endereço: Instancia - Café colonial</p>
 
-							<a href="https://goo.gl/maps/c8UZnR3s92rDSDEp8" target="_blank"
+							<a href="https://g.co/kgs/RtQrJy5" target="_blank"
 							   class="btn btn-primary">Ver Localização <i class="icon-map2"></i></a>
 						</div>
 					</div>
@@ -859,7 +859,50 @@
 	}
 </script>
 
+<!-- imagem loader -->
 <script type="text/javascript">
+    const lgContainer = document.getElementById('inline-gallery-container');
+    const fotos = [];
+    for (let i = 1; i <= 37; i++) {
+        const num = i.toString().padStart(4, '0'); // Gera 0001, 0002, ..., 0035
+        fotos.push({
+            src: `images/gallery/${num}.jpg`,
+            thumb: `images/gallery/${num}.jpg`
+        });
+    }
+
+    // Função para embaralhar o array (Fisher-Yates)
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    shuffle(fotos);
+
+    const inlineGallery = lightGallery(lgContainer, {
+        container: lgContainer,
+        dynamic: true,
+        thumbnail: true,
+        hash: false,
+        closable: false,
+        showMaximizeIcon: true,
+        download: false,
+        appendSubHtmlTo: '.lg-item',
+        slideDelay: 400,
+        dynamicEl: fotos,
+        plugins: [lgAutoplay], // Ativa o plugin de autoplay
+        autoplay: true,        // Inicia o autoplay automaticamente
+        autoplayControls: true,// Mostra controles de autoplay
+        pause: 3000            // Tempo entre slides (em ms)
+    });
+    inlineGallery.openGallery();
+</script>
+
+<!-- imagem loader -->
+<!-- script type="text/javascript">
 	const lgContainer = document.getElementById('inline-gallery-container');
 	const inlineGallery = lightGallery(lgContainer, {
 		container: lgContainer,
@@ -950,7 +993,7 @@
 
 	// Since we are using dynamic mode, we need to programmatically open lightGallery
 	inlineGallery.openGallery();
-</script>
+</script -->
 
 </body>
 </html>
