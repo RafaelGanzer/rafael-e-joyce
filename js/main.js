@@ -235,3 +235,46 @@
 
 
 }());
+
+// Ajuste para garantir que o carrossel de mensagens continue funcionando após atualizar a lista
+// Adicione esta função utilitária global para uso no seu guestbook:
+window.forceOwlCarouselOnMessagesList = function() {
+	var $container = $('#messagesList');
+	try {
+		if ($container.hasClass('owl-loaded')) {
+			$container.trigger('destroy.owl.carousel');
+			$container.removeClass('owl-loaded owl-drag');
+			$container.find('.owl-stage-outer').children().unwrap();
+			$container.find('.owl-stage').children().unwrap();
+			$container.find('.owl-nav').remove();
+			$container.find('.owl-dots').remove();
+		}
+	} catch (e) {}
+	// Garante que há pelo menos um .item
+	if ($container.children('.item').length === 0) {
+		$container.html(`
+			<div class="item">
+				<div class="testimony-slide active text-center">
+					<blockquote>
+						<p>Deixe sua mensagem 💌</p>
+					</blockquote>
+				</div>
+			</div>
+		`);
+	}
+	$container.owlCarousel({
+		items: 1,
+		loop: true,
+		autoplay: true,
+		autoplayTimeout: 5000,
+		autoplayHoverPause: true,
+		nav: true,
+		dots: true,
+		navText: ['❮', '❯'],
+		responsive: {
+			0: { items: 1 },
+			768: { items: 1 },
+			1000: { items: 1 }
+		}
+	});
+};
