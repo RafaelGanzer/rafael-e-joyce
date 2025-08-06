@@ -249,7 +249,7 @@
 							<p style="font-family: 'Courgette', Arial, serif">Endereço: Capela São Sebastião, Roseira de São Sebastião - São José dos Pinhais / PR</p>
 
 							<a href="#" 
-                   				onclick="openNativeMap('Capela São Sebastião, Roseira de São Sebastião - São José dos Pinhais, PR', 'https://maps.app.goo.gl/rEvHcxGL3bfpY6LUA')"
+                   				onclick="openSimpleNativeMapV2('Capela São Sebastião - Vila Nova, R. Francisco Munõz Madrid, 1746-1818 - Roseira de São Sebastião, São José dos Pinhais - PR, 83070-010', 'https://maps.app.goo.gl/rEvHcxGL3bfpY6LUA')"
 							   	class="btn btn-primary">Ver Localização <i class="icon-map2"></i></a>
 						</div>
 					</div>
@@ -266,10 +266,10 @@
 								<span>Domingo</span>
 								<span class="tanggal">17 de Agosto de 2025</span>
 							</div>
-							<p style="font-family: 'Courgette', Arial, serif">Endereço: Instancia Engenho Velho - Rodovia BR277 km 63 - Borda do Campo, São José dos Pinhais - PR</p>
+							<p style="font-family: 'Courgette', Arial, serif">Endereço: Estância Engenho Velho - Rodovia BR277 km 63 - Borda do Campo, São José dos Pinhais - PR</p>
 
 							<a href="#" 
-			                   onclick="openNativeMap('Instancia Engenho Velho, Rodovia BR277 km 63, Borda do Campo, São José dos Pinhais, PR'
+			                   onclick="openSimpleNativeMapV2('Estância Engenho Velho, Rodovia Br 277 km 63 Numero 14555 - Borda do Campo, São José dos Pinhais - PR, 83075-584'
 							   	, 'https://maps.app.goo.gl/hKp7qGt3RMFxQnFp6')"
 							   class="btn btn-primary">Ver Localização <i class="icon-map2"></i>
 							</a>
@@ -1169,7 +1169,7 @@
 		
 		if (isIOS) {
 			// Para iOS - tenta abrir no Apple Maps primeiro
-			const appleMapUrl = `maps://maps.apple.com/?q=${encodedAddress}`;
+			const appleMapUrl = `maps://?q=${encodedAddress}`;
 			const googleMapUrl = `comgooglemaps://?q=${encodedAddress}`;
 			
 			// Tenta abrir no Apple Maps
@@ -1232,6 +1232,41 @@
 			}
 		}
 	}
+
+	function openSimpleNativeMapV2(address, fallbackUrl) {
+		const encodedAddress = encodeURIComponent(address);
+		const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+		const isAndroid = /Android/.test(navigator.userAgent);
+		const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+
+		// 1. Tenta abrir no Waze App
+		const wazeUrl = `waze://?q=${encodedAddress}`;
+		window.location.href = wazeUrl;
+
+		// 2. Após 1 segundo, tenta o app de mapas do sistema
+		setTimeout(() => {
+			let mapUrl;
+
+			if (isIOS) {
+				mapUrl = `maps://?q=${encodedAddress}`;
+				window.location.href = mapUrl;
+			} else if (isAndroid) {
+				mapUrl = `geo:0,0?q=${encodedAddress}`;
+				window.location.href = mapUrl;
+			} else {
+				// Desktop ou fallback geral → abre em nova aba!
+				window.open(fallbackUrl || `https://maps.google.com/?q=${encodedAddress}`, '_blank');
+				return;
+			}
+
+			// 3. Fallback final (em mobile também, se tudo falhar)
+			setTimeout(() => {
+				window.open(fallbackUrl || `https://maps.google.com/?q=${encodedAddress}`, '_blank');
+			}, 500);
+		}, 1000);
+	}
+
+
 
 </script>
 
