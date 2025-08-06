@@ -95,7 +95,8 @@
 	<div id="floating-button" class="float">
 		<div class="control-center open">
 			<div class="audio-play">
-				<div data-video="QZng89VxKWg" data-autoplay="0" data-loop="1" id="youtube-audio1"></div>
+				<!-- <div data-video="QZng89VxKWg" data-autoplay="0" data-loop="1" id="youtube-audio1"></div> -->
+				 <div id="youtube-audio1" data-autoplay="0" data-loop="1"></div>
 			</div>
 			<ul class="right-sidebar">
 				<!--gallery-->
@@ -705,6 +706,41 @@
 	//    after the API code downloads.
 	var player1;
 	function onYouTubeIframeAPIReady() {
+		var ctrlq1 = document.getElementById("youtube-audio1");
+		ctrlq1.innerHTML = '<img id="youtube-icon1" src=""/><div id="youtube-player1"></div>';
+		ctrlq1.style.cssText = 'width:20px;margin:0 auto;cursor:pointer;cursor:hand;display:none';
+		ctrlq1.onclick = toggleAudio1;
+
+		const musicas = [
+			'ovBqrWPqdvs',
+			'-t7qxzo8YNU',
+			'DyxQnF0cZh4',
+			'6YlG18ThgNw'
+		];
+
+		player1 = new YT.Player('youtube-player1', {
+			height: '0',
+			width: '0',
+			playerVars: {
+				autoplay: ctrlq1.dataset.autoplay,
+				loop: 1, // necessário para repetir a playlist
+			},
+			events: {
+				'onReady': function (event) {
+					// Carrega playlist, ativa shuffle e loop
+					event.target.loadPlaylist(musicas);
+					event.target.setShuffle(true);
+					event.target.setLoop(true);
+
+					document.getElementById("youtube-audio1").style.display = "block";
+					togglePlayButton1(true);
+				},
+				'onStateChange': onPlayerStateChange1
+			}
+		});
+	}
+
+	function onYouTubeIframeAPIReadyOLD() {
 
 		var ctrlq1 = document.getElementById("youtube-audio1");
 		ctrlq1.innerHTML = '<img id="youtube-icon1" src=""/><div id="youtube-player1"></div>';
