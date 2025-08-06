@@ -705,12 +705,15 @@
 	// 3. This function creates an <iframe> (and YouTube player)
 	//    after the API code downloads.
 	var player1;
+	// Função de embaralhamento (Fisher-Yates)
+	function embaralhar(array) {
+		for (let i = array.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[array[i], array[j]] = [array[j], array[i]];
+		}
+		return array;
+	}
 	function onYouTubeIframeAPIReady() {
-		var ctrlq1 = document.getElementById("youtube-audio1");
-		ctrlq1.innerHTML = '<img id="youtube-icon1" src=""/><div id="youtube-player1"></div>';
-		ctrlq1.style.cssText = 'width:20px;margin:0 auto;cursor:pointer;cursor:hand;display:none';
-		ctrlq1.onclick = toggleAudio1;
-
 		const musicas = [
 			'ovBqrWPqdvs',
 			'-t7qxzo8YNU',
@@ -718,19 +721,32 @@
 			'6YlG18ThgNw'
 		];
 
+		const playlistAleatoria = embaralhar([...musicas]);
+
+		const ctrlq1 = document.getElementById("youtube-audio1");
+		ctrlq1.innerHTML = '<img id="youtube-icon1" src=""/><div id="youtube-player1"></div>';
+		ctrlq1.style.cssText = 'width:20px;margin:0 auto;cursor:pointer;cursor:hand;display:none';
+		ctrlq1.onclick = toggleAudio1;
+
 		player1 = new YT.Player('youtube-player1', {
 			height: '0',
 			width: '0',
 			playerVars: {
 				autoplay: ctrlq1.dataset.autoplay,
-				loop: 1, // necessário para repetir a playlist
+				loop: 1, // precisa disso para permitir repetir a playlist
 			},
 			events: {
 				'onReady': function (event) {
-					// Carrega playlist, ativa shuffle e loop
-					event.target.loadPlaylist(musicas);
-					event.target.setShuffle(true);
+					//const playlistAleatoria = embaralhar([...musicas]);
+
+					event.target.cuePlaylist({
+						playlist: playlistAleatoria,
+						index: 0,
+						startSeconds: 0,
+						suggestedQuality: "small"
+					});
 					event.target.setLoop(true);
+					event.target.playVideo();
 
 					document.getElementById("youtube-audio1").style.display = "block";
 					togglePlayButton1(true);
