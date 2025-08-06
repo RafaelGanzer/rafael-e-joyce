@@ -156,7 +156,8 @@
 					<div class="simply-countdown simply-countdown-wedding"></div>
 					<br>
 					<p>
-						<a href="https://bit.ly/Rafael_Joyce" target="_blank" class="btn btn-primary btn-sm">Salvar na agenda</a><br>
+						<a href="#" onclick="addToNativeCalendar()" class="btn btn-primary"> Salvar na agenda </a></p>
+						<!-- <a href="https://bit.ly/Rafael_Joyce" target="_blank" class="btn btn-primary btn-sm">Salvar na agenda</a><br> -->
 						<i style="font-size: 15px">*Clique neste botão para salvar a data no Google Agenda</i>
 					</p>
 				</div>
@@ -246,8 +247,9 @@
 							</div>
 							<p style="font-family: 'Courgette', Arial, serif">Endereço: Capela São Sebastião, Roseira de São Sebastião - São José dos Pinhais / PR</p>
 
-							<a href="https://share.google/7yR1AwZH3OurIppQm" target="_blank"
-							   class="btn btn-primary">Ver Localização <i class="icon-map2"></i></a>
+							<a href="#" 
+                   				onclick="openNativeMap('Capela São Sebastião, Roseira de São Sebastião - São José dos Pinhais, PR', 'https://maps.app.goo.gl/rEvHcxGL3bfpY6LUA')"
+							   	class="btn btn-primary">Ver Localização <i class="icon-map2"></i></a>
 						</div>
 					</div>
 					<div class="col-md-6 col-sm-6 text-center">
@@ -265,15 +267,13 @@
 							</div>
 							<p style="font-family: 'Courgette', Arial, serif">Endereço: Instancia Engenho Velho - Rodovia BR277 km 63 - Borda do Campo, São José dos Pinhais - PR</p>
 
-							<a href="https://share.google/lkLRQQPYFkQ5hUaE2" target="_blank"
-							   class="btn btn-primary">Ver Localização <i class="icon-map2"></i></a>
+							<a href="#" 
+			                   onclick="openNativeMap('Instancia Engenho Velho, Rodovia BR277 km 63, Borda do Campo, São José dos Pinhais, PR'
+							   	, 'https://maps.app.goo.gl/hKp7qGt3RMFxQnFp6')"
+							   class="btn btn-primary">Ver Localização <i class="icon-map2"></i>
+							</a>
 						</div>
-					</div>
-					<!-- <div class="col-md-12 animate-box" style="margin-top: 15px;">
-						<iframe width="100%" height="400" style="border: 0; border-radius: 5px;" frameborder="0" scrolling="no" src="https://calendar.google.com/calendar/embed?src=p68227rf4u2tqb5orkf10m3u44%40group.calendar.google.com&ctz=Asia%2FJakarta"></iframe>
-						&lt;!&ndash;
-						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3971.658582822158!2d95.24281301476557!3d5.468657396034234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30403b4252a49dbd%3A0xa20ea2ca9164dce9!2sLhoknga%20Riverside!5e0!3m2!1sen!2sid!4v1627721471121!5m2!1sen!2sid" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>&ndash;&gt;
-					</div> 	-->
+					</div>					
 				</div>
 			</div>
 		</div>
@@ -325,26 +325,33 @@
 					</p>
 				</div>
 
-				<div>
-					<div class="row">
-						<div class="col-md-4 col-xs-6">
-							<div>
-								<div>
-									<img height="250px" src="images/pix-joana.jpg"/>
-								</div>
-								<div class="description">
-									<h3>PIX - Joana Neto Ganzer</h3>
-									<p>Chave PIX: 0b77d298-52f1-435f-88e1-727d013ef4c7</p>	
-									<p>Banco: Inter</p>
-									<p>
-										<a href="images/pix-joana.jpg" target="_blank" rel="noopener">
-											Abrir
-										</a>
-									</p>
-								</div>
-							</div>
-						</div>							
-					</div>					
+				<div class="row animate-box">						
+					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+						<div>
+							<img height="250px" src="images/readme/qrcode.png"/>							
+						</div>
+						<div class="description">
+							<h3>PIX - Joana Neto Ganzer</h3>
+							<h3>Banco Inter</h3>
+							<p class="pix-key-text">Chave Aleatório:
+								<p>
+								<span id="pixKey" class="clickable-pix" onclick="copyPixKey()">0b77d298-52f1-435f-88e1-727d013ef4c7</span>
+							</p>
+						</div>
+						<div class="pix-line">
+							<p class="pix-key-text">Chave Copia e Cola: 
+								<p>
+								<span id="pixKeyCopiaCola" class="clickable-pix" 
+								onclick="copyPixCopiaCola()">00020126800014br.gov.bcb.pix01360b77d298-52f1-435f-88e1-727d013ef4c70218Presente Casamento5204000053039865802BR5901N6001C62070503***630428F4</span>
+							</p>							
+							<p>
+								<a href="images/pix-joana.jpg" target="_blank" rel="noopener">
+									Abrir QR CODE em tamanho maior
+									<i class="icon-external-link"></i>
+								</a>
+							</p>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -415,7 +422,11 @@
 
 		
 	</div>
+	<div class="toast" id="toast">
+		✓ Chave PIX copiada com sucesso!
+	</div>
 </div>
+
 
 <!-- JAVASCRIPT MELHORADO -->
 <script>
@@ -577,13 +588,7 @@
 						<br>Agradecemos a presença e as bênçãos.										
 					</p>
 					<img src="images/logo.PNG" width="300" height="300">
-					<br>
-					<!-- <h1 style="font-family: 'Satisfy', Arial, serif">Rafael & Joyce</h1> -->
-					</p>
-					<!-- Créditos do template original -->
-					<div class="template-credits" style="height: 30px;">
-						</p>
-					</div>				
+					<br>										
 					<!-- Seus créditos -->
 					<div class="site-credits">
 						<p>RafaelGanzer - Todos os direitos reservados</p>						
@@ -592,6 +597,8 @@
 					<div class="template-credits">
 						<p>Template baseado no trabalho de <a href="https://github.com/NgodingSolusi/the-wedding-of-rehan-maulidan" target="_blank">NIKAH DIGITAL</a></p>
 					</div>
+					</br>
+					<p>
 				</div>
 			</div>
 
@@ -937,43 +944,396 @@
         font-size: 1em;
     }
 }
+
+.toast {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	background-color: #28a745;
+	color: white;
+	padding: 12px 24px;
+	border-radius: 25px;
+	opacity: 0;
+	transform: translateY(-20px);
+	transition: all 0.3s ease;
+	z-index: 1000;
+	font-size: 14px;
+	font-weight: 500;
+	box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.toast.show {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.pix-key-text {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .clickable-pix {
+            color: #32d74b;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 600;
+            text-decoration: underline;
+            text-decoration-style: dotted;
+        }
+        
+        .clickable-pix:hover {
+            color: #28c940;
+            text-decoration-style: solid;
+        }
+        
+        .clickable-pix.copied {
+            color: #007aff;
+        }
+
+
 </style>
 <div id="floating-rsvp-btn" style="display:none;">
     <a class="rsvp-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSecM8xL71oS25cXbfMiz9XIe24WOpd9onJq5bQdc-bQrqkgRw/viewform" target="_blank" rel="noopener">Confirmar presença</a>
 </div>
 
 <script>
-// Exibe o botão flutuante somente após clicar em "abrir convite"
-document.addEventListener('DOMContentLoaded', function() {
-    var btn = document.getElementById('open-invitation');
-    if (btn) {
-        btn.addEventListener('click', function() {
-            var rsvp = document.getElementById('floating-rsvp-btn');
-            if (rsvp) rsvp.style.display = 'block';
-        });
-    }
+	// Exibe o botão flutuante somente após clicar em "abrir convite"
+	document.addEventListener('DOMContentLoaded', function() {
+		var btn = document.getElementById('open-invitation');
+		if (btn) {
+			btn.addEventListener('click', function() {
+				var rsvp = document.getElementById('floating-rsvp-btn');
+				if (rsvp) rsvp.style.display = 'block';
+			});
+		}
 
-    // Esconde o botão se chegar perto do rodapé para não sobrepor
-    function adjustRsvpBtn() {
-        var rsvp = document.getElementById('floating-rsvp-btn');
-        var footer = document.getElementById('fh5co-footer');
-        if (!rsvp || !footer) return;
-        var windowHeight = window.innerHeight;
-        var footerRect = footer.getBoundingClientRect();
-        var btnRect = rsvp.getBoundingClientRect();
-        // Se o rodapé está visível na tela, sobe o botão
-        if (footerRect.top < windowHeight - 60) {
-            rsvp.style.bottom = (windowHeight - footerRect.top + 24) + 'px';
-            rsvp.style.opacity = 0.85;
-        } else {
-            rsvp.style.bottom = '';
-            rsvp.style.opacity = 0.95;
-        }
-    }
-    window.addEventListener('scroll', adjustRsvpBtn);
-    window.addEventListener('resize', adjustRsvpBtn);
-});
+		// Esconde o botão se chegar perto do rodapé para não sobrepor
+		function adjustRsvpBtn() {
+			var rsvp = document.getElementById('floating-rsvp-btn');
+			var footer = document.getElementById('fh5co-footer');
+			if (!rsvp || !footer) return;
+			var windowHeight = window.innerHeight;
+			var footerRect = footer.getBoundingClientRect();
+			var btnRect = rsvp.getBoundingClientRect();
+			// Se o rodapé está visível na tela, sobe o botão
+			if (footerRect.top < windowHeight - 60) {
+				rsvp.style.bottom = (windowHeight - footerRect.top + 24) + 'px';
+				rsvp.style.opacity = 0.85;
+			} else {
+				rsvp.style.bottom = '';
+				rsvp.style.opacity = 0.95;
+			}
+		}
+		window.addEventListener('scroll', adjustRsvpBtn);
+		window.addEventListener('resize', adjustRsvpBtn);
+	});
+
+	function copyPixKey() {
+		const pixKey = document.getElementById('pixKey').textContent;		
+		const toast = document.getElementById('toast');
+		
+		// Verifica se a API clipboard está disponível
+		if (navigator.clipboard && window.isSecureContext) {
+			// Copia usando a API moderna
+			navigator.clipboard.writeText(pixKey).then(function() {
+				showCopySuccess(toast);
+			}).catch(function(err) {
+				console.error('Erro ao copiar: ', err);
+				fallbackCopyTextToClipboard(pixKey, toast);
+			});
+		} else {
+			// Fallback para navegadores mais antigos
+			fallbackCopyTextToClipboard(pixKey, toast);
+		}
+	}
+
+	function copyPixCopiaCola() {
+		const pixKey = document.getElementById('pixKeyCopiaCola').textContent;		
+		const toast = document.getElementById('toast');
+		
+		// Verifica se a API clipboard está disponível
+		if (navigator.clipboard && window.isSecureContext) {
+			// Copia usando a API moderna
+			navigator.clipboard.writeText(pixKey).then(function() {
+				showCopySuccess(toast);
+			}).catch(function(err) {
+				console.error('Erro ao copiar: ', err);
+				fallbackCopyTextToClipboard(pixKey, toast);
+			});
+		} else {
+			// Fallback para navegadores mais antigos
+			fallbackCopyTextToClipboard(pixKey, toast);
+		}
+	}
+	
+	function showCopySuccess(toast) {
+		
+		// Mostra o toast
+		toast.classList.add('show');
+
+		// Esconde o toast após 3 segundos
+		setTimeout(() => {
+			toast.classList.remove('show');
+		}, 3000);
+	}
+	
+	// Fallback para navegadores mais antigos
+	function fallbackCopyTextToClipboard(text, toast) {
+		const textArea = document.createElement("textarea");
+		textArea.value = text;
+		textArea.style.top = "0";
+		textArea.style.left = "0";
+		textArea.style.position = "fixed";
+		textArea.style.opacity = "0";
+		
+		document.body.appendChild(textArea);
+		textArea.focus();
+		textArea.select();
+		
+		try {
+			const successful = document.execCommand('copy');
+			if (successful) {
+				showCopySuccess(toast);
+			} else {
+				alert('Não foi possível copiar a chave PIX. Por favor, copie manualmente.');
+			}
+		} catch (err) {
+			console.error('Fallback: Erro ao copiar', err);
+			alert('Não foi possível copiar a chave PIX. Por favor, copie manualmente.');
+		}
+		
+		document.body.removeChild(textArea);
+	}
+
+	function openNativeMap(address, fallbackUrl) {
+		// Detecta o tipo de dispositivo
+		const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+		const isAndroid = /Android/.test(navigator.userAgent);
+		const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+		
+		// Endereço codificado para URLs
+		const encodedAddress = encodeURIComponent(address);
+		
+		if (isIOS) {
+			// Para iOS - tenta abrir no Apple Maps primeiro
+			const appleMapUrl = `maps://maps.apple.com/?q=${encodedAddress}`;
+			const googleMapUrl = `comgooglemaps://?q=${encodedAddress}`;
+			
+			// Tenta abrir no Apple Maps
+			window.location.href = appleMapUrl;
+			
+			// Fallback após um pequeno delay
+			setTimeout(() => {
+				// Se não conseguiu abrir o Apple Maps, tenta Google Maps
+				window.location.href = googleMapUrl;
+				
+				// Segundo fallback para o navegador
+				setTimeout(() => {
+					window.open(fallbackUrl, '_blank');
+				}, 500);
+			}, 500);
+			
+		} else if (isAndroid) {
+			// Para Android - tenta abrir no Google Maps
+			const googleMapUrl = `geo:0,0?q=${encodedAddress}`;
+			const googleMapAppUrl = `https://maps.google.com/?q=${encodedAddress}`;
+			
+			// Tenta abrir no app do Google Maps
+			window.location.href = googleMapUrl;
+			
+			// Fallback após um pequeno delay
+			setTimeout(() => {
+				window.open(googleMapAppUrl, '_blank');
+			}, 500);
+			
+		} else if (isMobile) {
+			// Para outros dispositivos móveis
+			const generalMapUrl = `https://maps.google.com/?q=${encodedAddress}`;
+			window.open(generalMapUrl, '_blank');
+			
+		} else {
+			// Para desktop - abre diretamente o Google Maps no navegador
+			window.open(fallbackUrl, '_blank');
+		}
+	}
+	
+	// Função alternativa mais simples (caso a primeira não funcione bem)
+	function openSimpleNativeMap(address, fallbackUrl) {
+		const encodedAddress = encodeURIComponent(address);
+		
+		// URLs universais que funcionam na maioria dos dispositivos
+		const urls = [
+			`https://maps.google.com/maps?q=${encodedAddress}`, // Google Maps web
+			`maps://maps.apple.com/?q=${encodedAddress}`, // Apple Maps
+			`geo:${encodedAddress}`, // Android generic
+			fallbackUrl // Fallback original
+		];
+		
+		// Tenta abrir a primeira URL disponível
+		for (let url of urls) {
+			try {
+				window.open(url, '_blank');
+				break;
+			} catch (e) {
+				continue;
+			}
+		}
+	}
+
 </script>
 
+<script>
+        // Dados do evento
+        const eventData = {
+            title: "Casamento Rafael & Joyce",
+            startDate: "20250817T120000Z", // UTC
+            endDate: "20250817T130000Z",   // UTC
+            description: "Local: https://share.google/7yR1AwZH3OurIppQm\n\n⚠️ IMPORTANTE: Configure lembretes para:\n- 2 dias antes\n- 1 dia antes\n- 1 hora antes\n\nLembre-se de confirmar sua presença!",
+            location: "https://share.google/7yR1AwZH3OurIppQm",
+            timezone: "America/Sao_Paulo"
+        };
+        
+        function addToNativeCalendar() {
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+            const isAndroid = /Android/.test(navigator.userAgent);
+            const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+            
+            if (isIOS) {
+                addToAppleCalendar();
+            } else if (isAndroid) {
+                addToGoogleCalendar();
+            } else if (isMobile) {
+                addToGoogleCalendar();
+            } else {
+                // Desktop - mostra opções
+                addToGoogleCalendar();
+            }
+        }
+        
+        function addToGoogleCalendar() {
+            const googleUrl = `https://calendar.google.com/calendar/u/0/r/eventedit?` +
+                `text=${encodeURIComponent(eventData.title)}&` +
+                `dates=${eventData.startDate}/${eventData.endDate}&` +
+                `details=${encodeURIComponent(eventData.description)}&` +
+                `location=${encodeURIComponent(eventData.location)}&` +
+                `ctz=${eventData.timezone}`;
+            
+            window.open(googleUrl, '_blank');
+            showSuccessMessage();
+        }
+        
+        function addToAppleCalendar() {
+            // Converte datas para formato Apple Calendar
+            const startDate = new Date(eventData.startDate.replace('Z', '')).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+            const endDate = new Date(eventData.endDate.replace('Z', '')).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+            
+            // Cria arquivo .ics para Apple Calendar
+            const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Casamento//Rafael & Joyce//PT
+BEGIN:VEVENT
+UID:${Date.now()}@casamento-rafael-joyce.com
+DTSTART:${startDate}
+DTEND:${endDate}
+SUMMARY:${eventData.title}
+DESCRIPTION:${eventData.description.replace(/\n/g, '\\n')}
+LOCATION:${eventData.location}
+BEGIN:VALARM
+TRIGGER:-P2D
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: Casamento em 2 dias
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: Casamento amanhã
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT1H
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: Casamento em 1 hora
+END:VALARM
+END:VEVENT
+END:VCALENDAR`;
+            
+            // Tenta usar URL scheme primeiro (iOS)
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+            if (isIOS) {
+                // URL scheme para iOS
+                const iosUrl = `calshow:${Math.floor(new Date(eventData.startDate).getTime() / 1000)}`;
+                window.location.href = iosUrl;
+                
+                // Fallback para download do arquivo .ics
+                setTimeout(() => {
+                    downloadIcsFile(icsContent);
+                }, 1000);
+            } else {
+                // Para outros dispositivos, faz download do arquivo .ics
+                downloadIcsFile(icsContent);
+            }
+            
+            showSuccessMessage();
+        }
+        
+        function addToOutlookCalendar() {
+            const outlookUrl = `https://outlook.live.com/calendar/0/deeplink/compose?` +
+                `subject=${encodeURIComponent(eventData.title)}&` +
+                `startdt=${eventData.startDate}&` +
+                `enddt=${eventData.endDate}&` +
+                `body=${encodeURIComponent(eventData.description)}&` +
+                `location=${encodeURIComponent(eventData.location)}`;
+            
+            window.open(outlookUrl, '_blank');
+            showSuccessMessage();
+        }
+        
+        function downloadIcsFile(content) {
+            const blob = new Blob([content], { type: 'text/calendar;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'casamento-rafael-joyce.ics';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        
+        function showSuccessMessage() {
+            const successMsg = document.getElementById('successMessage');
+            successMsg.style.display = 'block';
+            
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Função para usar com o link original
+        function addToCalendarOriginal() {
+            const originalUrl = "https://calendar.google.com/calendar/u/0/r/eventedit?text=Casamento+Rafael+%26+Joyce&dates=20250817T120000Z/20250817T130000Z&details=Local:+https://share.google/7yR1AwZH3OurIppQm%0A%0A%E2%9A%A0%EF%B8%8F+IMPORTANTE:+Configure+lembretes+para:%0A-+2+dias+antes%0A-+1+dia+antes%0A-+1+hora+antes%0A%0ALembre-se+de+confirmar+sua+presen%C3%A7a!&location=https://share.google/7yR1AwZH3OurIppQm&ctz=America/Sao_Paulo";
+            
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+            const isAndroid = /Android/.test(navigator.userAgent);
+            
+            if (isIOS) {
+                // Tenta abrir no app nativo do iOS primeiro
+                const iosCalendarUrl = "calshow://";
+                window.location.href = iosCalendarUrl;
+                
+                // Fallback para Google Calendar
+                setTimeout(() => {
+                    window.open(originalUrl, '_blank');
+                }, 500);
+            } else {
+                // Para Android e outros, abre Google Calendar
+                window.open(originalUrl, '_blank');
+            }
+        }
+    </script>
+
+	<div class="success-message" id="successMessage">
+            ✅ Evento adicionado ao calendário com sucesso!
+    </div>
+
+</body>
 
 
